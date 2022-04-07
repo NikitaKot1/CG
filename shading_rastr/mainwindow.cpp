@@ -105,7 +105,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
             int y2 = lol[iter].body[lol[iter].size - 2].y;
             active_sect s;
             s.start_x = y1 > y2 ? x2 : x1;
-            s.start_y = y1 > y2 ? y2 : y1;
+            s.start_y = y1 > y2 ? y2+1 : y1+1;
             s.ny = abs(y2 - y1);
             s.dx = y1 > y2 ? double(x1 - x2) / s.ny : double(x2 - x1) / s.ny;
             sects_act.act.push_back(s);
@@ -138,7 +138,7 @@ void MainWindow::on_buttonCloseFig_clicked()
         int y2 = lol[iter].body[0].y;
         active_sect s;
         s.start_x = y1 > y2 ? x2 : x1;
-        s.start_y = y1 > y2 ? y2 : y1;
+        s.start_y = y1 > y2 ? y2+1 : y1+1;
         s.ny = abs(y2 - y1);
         s.dx = y1 > y2 ? double(x1 - x2) / s.ny : double(x2 - x1) / s.ny;
         sects_act.act.push_back(s);
@@ -306,7 +306,7 @@ void MainWindow::shadeFigure(bool stop)
 //        }
 //        vx.clear();
 //    }
-    for (int y = ymin; y < ymax; y++)
+    for (int y = ymin + 1; y < ymax; y++)
     {
         vector <int> vx;
         update_groups(y);
@@ -316,7 +316,7 @@ void MainWindow::shadeFigure(bool stop)
         }
         sort(vx.begin(), vx.end());
         for (int i = 0; i < (int)vx.size(); i+=2)
-            ui->graphicsView->scene()->addLine(QLine(vx[i] + 1, y + 1, vx[i+1] - 1, y + 1), QPen(shadecolor));
+            ui->graphicsView->scene()->addLine(QLine(vx[i] + 1, y, vx[i+1] - 1, y), QPen(shadecolor));
         if (stop)
         {
             std::this_thread::sleep_for(std::chrono::microseconds(10000));
