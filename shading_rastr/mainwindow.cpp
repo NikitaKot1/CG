@@ -6,6 +6,8 @@
 #include <chrono>
 #include <thread>
 #include <cmath>
+#include <ctime>
+#include <cstdio>
 
 vector <figure> lol;
 int iter = 0;
@@ -15,9 +17,9 @@ QColor shadecolor = Qt::white;
 bool flg = true;
 int ymin = 2000;
 int ymax = 0;
-active_sects acts;
 active_sects2 sects_act;
 active_sects2 now_active;
+vector <horisont_sect> horis;
 
 #define RED 1
 #define BLUE 2
@@ -103,12 +105,23 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
             int x2 = lol[iter].body[lol[iter].size - 2].x;
             int y1 = lol[iter].body[lol[iter].size - 1].y;
             int y2 = lol[iter].body[lol[iter].size - 2].y;
-            active_sect s;
-            s.start_x = y1 > y2 ? x2 : x1;
-            s.start_y = y1 > y2 ? y2+1 : y1+1;
-            s.ny = abs(y2 - y1);
-            s.dx = y1 > y2 ? double(x1 - x2) / s.ny : double(x2 - x1) / s.ny;
-            sects_act.act.push_back(s);
+            if (y1 == y2)
+            {
+                horisont_sect hsect;
+                hsect.y = y1;
+                hsect.x1 = x1;
+                hsect.x2 = x2;
+                horis.push_back(hsect);
+            }
+            else
+            {
+                active_sect s;
+                s.start_x = y1 > y2 ? x2 : x1;
+                s.start_y = y1 > y2 ? y2 : y1;
+                s.ny = abs(y2 - y1);
+                s.dx = y1 > y2 ? double(x1 - x2) / s.ny : double(x2 - x1) / s.ny;
+                sects_act.act.push_back(s);
+            }
         }
     }
 }
@@ -138,7 +151,7 @@ void MainWindow::on_buttonCloseFig_clicked()
         int y2 = lol[iter].body[0].y;
         active_sect s;
         s.start_x = y1 > y2 ? x2 : x1;
-        s.start_y = y1 > y2 ? y2+1 : y1+1;
+        s.start_y = y1 > y2 ? y2 : y1;
         s.ny = abs(y2 - y1);
         s.dx = y1 > y2 ? double(x1 - x2) / s.ny : double(x2 - x1) / s.ny;
         sects_act.act.push_back(s);
@@ -220,48 +233,12 @@ void MainWindow::on_butClear_clicked()
     ui->tableWidget->setRowCount(0);
     sects_act.act.clear();
     now_active.act.clear();
-}
-
-bool is_active(dot d1, dot d2, int y)
-{
-    return (d1.y > y && d2.y <= y) || (d1.y <= y && d2.y > y);
-}
-
-void take_active_sects(int y)
-{
-    for (int i = 0; i < iter; i++)
-    {
-        for (int j = 0; j < lol[i].size - 1; j++)
-            if (is_active(lol[i].body[j], lol[i].body[j+1], y))
-            {
-                section s;
-                s.d1 = lol[i].body[j];
-                s.d2 = lol[i].body[j+1];
-                acts.act.push_back(s);
-            }
-        if (is_active(lol[i].body[0], lol[i].body[lol[i].size-1], y))
-        {
-            section s;
-            s.d1 = lol[i].body[0];
-            s.d2 = lol[i].body[lol[i].size-1];
-            acts.act.push_back(s);
-        }
-    }
-}
-
-int take_x_of_section(section sect, int y)
-{
-    int dx = sect.d2.x - sect.d1.x;
-    int dy = sect.d2.y - sect.d1.y;
-    if (dx == 0 || y == sect.d1.y)
-        return sect.d1.x;
-    if (y == sect.d2.y)
-        return sect.d2.x;
-    return sect.d1.x + (y - sect.d1.y + 0.5) * dx / dy;
+    horis.clear();
 }
 
 void update_groups(int y)
 {
+
     for (int i = 0; i < (int)sects_act.act.size(); i++)
     {
         if (sects_act.act[i].start_y == y)
@@ -276,47 +253,40 @@ void update_groups(int y)
     }
 }
 
-void MainWindow::shadeFigure(bool stop)
+vector <horisont_sect> take_horisont(int y)
+{
+    vector <horisont_sect> vx;
+    for (int i = 0; i < (int)horis.size(); i++)
+    {
+        if (y == horis[i].y)
+            vx.push_back(horis[i]);
+    }
+    return vx;
+}
+
+int64_t MainWindow::shadeFigure(bool stop)
 {
     colorCheck();
-//    for (int y = ymin + 1; y < ymax; y++)
-//    {
-//        vector <int> vx;
-//        acts.act.clear();
-//        take_active_sects(y);
-//        for (int j = 0; j < (int)acts.act.size(); j++)
-//        {
-//            section sect = acts.act[j];
-//            int dy = sect.d2.y - sect.d1.y;
-//            if (dy == 0)
-//            {
-//                vx.push_back(sect.d1.x);
-//                vx.push_back(sect.d2.x);
-//            }
-//            else
-//                vx.push_back(take_x_of_section(sect, y));
-//        }
-//        sort(vx.begin(), vx.end());
-//        for (int i = 0; i < (int)vx.size(); i+=2)
-//            ui->graphicsView->scene()->addLine(QLine(vx[i] + 1, y, vx[i+1] - 1, y), QPen(shadecolor));
-//        if (stop)
-//        {
-//            std::this_thread::sleep_for(std::chrono::microseconds(10000));
-//            qApp->processEvents();
-//        }
-//        vx.clear();
-//    }
-    for (int y = ymin + 1; y < ymax; y++)
+    timeval sta, enn;
+    int64_t elapsed_time_k = 0;
+    mingw_gettimeofday(&sta, NULL);
+    for (int y = ymin; y < ymax; y++)
     {
         vector <int> vx;
         update_groups(y);
         for (int i = 0; i < (int)now_active.act.size(); i++)
         {
-            vx.push_back(round(now_active.act[i].start_x));
+            vx.push_back(round(now_active.act[i].start_x) - (now_active.act[i].dx / 2));
         }
         sort(vx.begin(), vx.end());
         for (int i = 0; i < (int)vx.size(); i+=2)
             ui->graphicsView->scene()->addLine(QLine(vx[i] + 1, y, vx[i+1] - 1, y), QPen(shadecolor));
+        vector <horisont_sect> vh = take_horisont(y);
+        for (int i = 0; i < (int)vh.size(); i++)
+        {
+            ui->graphicsView->scene()->addLine(QLine(vh[i].x1, y, vh[i].x2, y), QPen(pencolor));
+        }
+        vh.clear();
         if (stop)
         {
             std::this_thread::sleep_for(std::chrono::microseconds(10000));
@@ -324,16 +294,84 @@ void MainWindow::shadeFigure(bool stop)
         }
         vx.clear();
     }
+    mingw_gettimeofday(&enn, NULL);
+    elapsed_time_k = (enn.tv_sec - sta.tv_sec) * 1000000LL + (enn.tv_usec - sta.tv_usec);
+    return elapsed_time_k;
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    shadeFigure(false);
+    int64_t elapsed_time_k = shadeFigure(false);
+    char buf[1024];
+    sprintf(buf, "%lld мкс", elapsed_time_k);
+    ui->timeLable->setText(QString(buf));
 }
 
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    shadeFigure(true);
+    int64_t elapsed_time_k = shadeFigure(true);
+    char buf[1024];
+    sprintf(buf, "%.3f с", elapsed_time_k / 1000000.);
+    ui->timeLable->setText(QString(buf));
+}
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    dot d;
+    d.x = ui->spinBoxX->value();
+    d.y = ui->spinBoxY->value();
+    if (flagEnter && lol[iter].size != 0)
+    {
+        int dx = lol[iter].body[lol[iter].size - 1].x - d.x;
+        int dy = lol[iter].body[lol[iter].size - 1].y - d.y;
+        if (abs(dx) > abs(dy))
+            d.y += dy;
+        else
+            d.x += dx;
+    }
+    ui->graphicsView->scene()->addEllipse(QRect(d.x - 5, d.y - 5, 10, 10), QPen(pencolor), QBrush(pencolor));
+    if (lol[iter].size != 0)
+        ui->graphicsView->scene()->addLine(QLine(d.x, d.y, lol[iter].body[lol[iter].size - 1].x,
+                                           lol[iter].body[lol[iter].size - 1].y), QPen(pencolor));
+    lol[iter].body.push_back(d);
+    lol[iter].size++;
+    ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+1);
+    char buf[10];
+    std::sprintf(buf, "%d", d.x);
+    QTableWidgetItem *iten = new QTableWidgetItem(QString(buf));
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 0, iten);
+    std::sprintf(buf, "%d", d.y);
+    QTableWidgetItem *iten2 = new QTableWidgetItem(QString(buf));
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 1, iten2);
+    if (d.y > ymax)
+        ymax = d.y;
+    if (d.y < ymin)
+        ymin = d.y;
+    if (lol[iter].size > 1)
+    {
+        int x1 = lol[iter].body[lol[iter].size - 1].x;
+        int x2 = lol[iter].body[lol[iter].size - 2].x;
+        int y1 = lol[iter].body[lol[iter].size - 1].y;
+        int y2 = lol[iter].body[lol[iter].size - 2].y;
+        if (y1 == y2)
+        {
+            horisont_sect hsect;
+            hsect.y = y1;
+            hsect.x1 = x1;
+            hsect.x2 = x2;
+            horis.push_back(hsect);
+        }
+        else
+        {
+            active_sect s;
+            s.start_x = y1 > y2 ? x2 : x1;
+            s.start_y = y1 > y2 ? y2 : y1;
+            s.ny = abs(y2 - y1);
+            s.dx = y1 > y2 ? double(x1 - x2) / s.ny : double(x2 - x1) / s.ny;
+            sects_act.act.push_back(s);
+        }
+    }
 }
 

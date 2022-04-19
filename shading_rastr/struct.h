@@ -35,4 +35,10 @@ struct active_sects2{
     vector <active_sect> act;
 };
 
+struct horisont_sect{
+    int y;
+    int x1;
+    int x2;
+};
+
 #endif // STRUCT_H

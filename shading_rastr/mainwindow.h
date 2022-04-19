@@ -28,13 +28,15 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_pushButton_3_clicked();
+
 private:
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void keyPressEvent(QKeyEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
     void addColorsToComboBox(QComboBox *cmb);
     void colorCheck();
-    void shadeFigure(bool stop);
+    int64_t shadeFigure(bool stop);
 
 private:
     Ui::MainWindow *ui;
