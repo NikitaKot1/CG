@@ -44,7 +44,7 @@
       <x>10</x>
       <y>10</y>
       <width>401</width>
-      <height>731</height>
+      <height>791</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -289,7 +289,7 @@
      <property name="geometry">
       <rect>
        <x>12</x>
-       <y>670</y>
+       <y>740</y>
        <width>371</width>
        <height>37</height>
       </rect>
@@ -374,6 +374,32 @@
      </property>
      <property name="text">
       <string>Замкнуть фигуру</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="clearPushButtonFigure">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>660</y>
+       <width>371</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Стереть фигуру</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="clearPushButtonClipper">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>700</y>
+       <width>371</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Стереть отсекатель</string>
      </property>
     </widget>
    </widget>
@@ -466,7 +492,7 @@
      <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
     <property name="rowCount">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="columnCount">
      <number>6</number>
@@ -495,7 +521,6 @@
     <attribute name="verticalHeaderShowSortIndicator" stdset="0">
      <bool>false</bool>
     </attribute>
-    <row/>
     <column>
      <property name="text">
       <string>x1</string>

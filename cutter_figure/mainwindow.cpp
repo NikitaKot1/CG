@@ -24,6 +24,15 @@ MainWindow::~MainWindow()
 	delete ui;
 }
 
+int sign(int x)
+{
+    if (x > 0)
+        return 1;
+    if (x < 0)
+        return -1;
+    return 0;
+}
+
 void MainWindow::clearTable(QTableWidget* table)
 {
     int n = table->rowCount();
@@ -163,35 +172,39 @@ QVector<QLine> verticesToEdges(const QVector<QPoint>& vertices)
 
 void MainWindow::on_clipPushButton_clicked()
 {
-    int direction = checkClipper();
-    if (!direction) {
-        QMessageBox::critical(nullptr, "Error", "Clipper must be convex");
+    if (!startFigure) {
+            QMessageBox::critical(this, "Error", "Polygon must be closed");
+            return;
+    }
+
+    if (!startClipper) {
+        QMessageBox::critical(this, "Error", "Clipper must be closed");
         return;
     }
 
-    auto edges = verticesToEdges(linesClip);
+    int direction = checkClipper();
+    if (!direction) {
+        QMessageBox::critical(this, "Error", "Clipper must be convex");
+        return;
+    }
 
-	QPainter painter(&pixmap);
-	painter.setPen(QPen(clippedLineColor, 3));
+    QPainter painter(&pixmap);
+    painter.setPen(QPen(clippedLineColor, 3));
+    auto clipped = clipPolygon(direction);
 
-	for (auto &line: lines)
-        clipLine(line, direction, edges, painter);
+    for (int i = 1; i < clipped.size(); ++i)
+        painter.drawLine(clipped[i - 1], clipped[i]);
 
-	ui->drawLabel->update();
+    if (clipped.size() > 1)
+        painter.drawLine(clipped.back(), clipped.front());
+
+    ui->drawLabel->update();
 }
 
 void MainWindow::on_clearPushButton_clicked()
 {
-	lines.clear();
-    linesClip.clear();
-	displayImage();
-
-	setLineBaseColor(Qt::red);
-	setClipperColor(Qt::black);
-	setClippedLineColor(Qt::blue);
-
-    clearTable(ui->tableWidget);
-    startClipper = true;
+    on_clearPushButtonClipper_clicked();
+    on_clearPushButtonFigure_clicked();
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
@@ -283,11 +296,6 @@ void MainWindow::colorLabel(const QColor &color, QLabel *label) {
 	label->setPalette(palette);
 }
 
-void MainWindow::addLine(const QLine &line)
-{
-    lines.push_back(line);
-	displayImage();
-}
 
 void MainWindow::addLineClipper(const QPoint &point)
 {
@@ -337,61 +345,7 @@ double dotProduct(const QPointF &a, const QPointF &b)
     return a.x() * b.x() + a.y() * b.y();
 }
 
-void MainWindow::clipLine(const QLine &line, int direction, QVector<QLine> edges, QPainter &painter)
-{
-    QPoint d = line.p2() - line.p1();
-    float tb = 0;
-    float te = 1;
 
-    for (const auto& edge: edges) {
-        QPoint w = line.p1() - edge.p1();
-        QPointF n = perpendicular(direction * (edge.p2() - edge.p1()));
-
-        auto d_scalar = dotProduct(d, n);
-        auto w_scalar = dotProduct(w, n);
-
-        if (d_scalar == 0.0)// (p2 == p1)  or  (d || n)
-        {
-            if (w_scalar < 0)
-                return; // line is invisible
-        }
-        else
-        {
-            float t = - w_scalar / d_scalar;
-            if (d_scalar > 0)
-            {
-                if (t > 1)
-                    return;
-                tb = qMax(tb, t);
-            }
-            else
-            {
-                if (t < 0)
-                    return;
-                te = qMin(te, t);
-            }
-        }
-    }
-
-    if (tb <= te)
-        painter.drawLine(line.p1() + d * te, line.p1() + d * tb);
-}
-
-int MainWindow::code(const QPoint& point, int xl, int xr, int yb, int yt)
-{
-	int result = 0;
-
-	if (point.x() < xl)
-        result += 1;
-	if (point.x() > xr)
-        result += 2;
-	if (point.y() < yb)
-        result += 4;
-	if (point.y() > yt)
-        result += 8;
-
-	return result;
-}
 
 
 void MainWindow::on_closeClipperButton_clicked()
@@ -430,5 +384,84 @@ void MainWindow::on_closeFigureButton_clicked()
     ui->tableWidgetFigure->setItem(ui->tableWidgetFigure->rowCount() - 1, 3, iten2);
     startFigure = true;
     displayImage();
+}
+
+
+void MainWindow::on_clearPushButtonFigure_clicked()
+{
+    linesFig.clear();
+    displayImage();
+
+    setLineBaseColor(Qt::red);
+    setClipperColor(Qt::black);
+    setClippedLineColor(Qt::blue);
+
+    clearTable(ui->tableWidgetFigure);
+    startFigure = true;
+}
+
+
+void MainWindow::on_clearPushButtonClipper_clicked()
+{
+    linesClip.clear();
+    displayImage();
+
+    setLineBaseColor(Qt::red);
+    setClipperColor(Qt::black);
+    setClippedLineColor(Qt::blue);
+
+    clearTable(ui->tableWidget);
+    startClipper = true;
+}
+
+
+
+QVector<QPoint> MainWindow::clipPolygon(int direction)
+{
+    QVector<QPoint> result;
+    QVector<QPoint> polygon = linesFig;
+    QVector<QPoint> clipper = linesClip;
+    clipper.push_back(clipper.front());
+
+    QPoint first, start;
+
+    for (int i = 0; i < clipper.size() - 1; ++i) {
+        for (int j = 0; j < polygon.size(); ++j) {
+            if (!j)
+                first = polygon[j];
+            else if (checkIntersection(start, polygon[j], clipper[i], clipper[i + 1]))
+                result.push_back(intersection(start, polygon[j], clipper[i], clipper[i + 1]));
+
+            start = polygon[j];
+            if (isVisible(start, clipper[i], clipper[i + 1]) * direction < 0)
+                result.push_back(start);
+        }
+
+        if (!result.empty()) {
+            if (checkIntersection(start, first, clipper[i], clipper[i + 1]))
+                result.push_back(intersection(start, first, clipper[i], clipper[i + 1]));
+        }
+
+        polygon = result;
+        result.clear();
+    }
+
+    return polygon;
+}
+
+bool MainWindow::checkIntersection(const QPoint &sp, const QPoint &ep, const QPoint &p0, const QPoint &p1)
+{
+    return isVisible(sp, p0, p1) * isVisible(ep, p0, p1) <= 0;
+}
+
+int MainWindow::isVisible(const QPoint &p, const QPoint &p1, const QPoint &p2)
+{
+    return sign(skewProduct(p - p1, p2 - p1));
+}
+
+QPoint MainWindow::intersection(QPoint &p1, QPoint &p2, QPoint &cp1, QPoint &cp2) {
+    const int det = skewProduct(p2 - p1, cp1 - cp2);
+    const double t = static_cast<double>(skewProduct(cp1 - p1, cp1 - cp2)) / det;
+    return p1 + (p2 - p1) * t;
 }
 

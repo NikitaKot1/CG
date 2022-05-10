@@ -30,6 +30,8 @@ private slots:
 	void on_clearPushButton_clicked();
     void on_closeClipperButton_clicked();
     void on_closeFigureButton_clicked();
+    void on_clearPushButtonFigure_clicked();
+    void on_clearPushButtonClipper_clicked();
 
 protected:
 	void mousePressEvent(QMouseEvent *event);
@@ -57,16 +59,15 @@ private:
     void clearTable(QTableWidget* table);
 
     int checkClipper();
+    QVector<QPoint> clipPolygon(int direction);
+    bool checkIntersection(const QPoint &sp, const QPoint &ep, const QPoint &p0, const QPoint &p1);
+    int isVisible(const QPoint &p, const QPoint &p1, const QPoint &p2);
+    QPoint intersection(QPoint &p1, QPoint &p2, QPoint &cp1, QPoint &cp2);
 
-	QVector<QLine> lines;
     QVector<QPoint> linesClip;
     QVector<QPoint> linesFig;
 
-	void addLine(const QLine &line);
     void addLineClipper(const QPoint &point);
-
-    void clipLine(const QLine &line, int direction, QVector<QLine> enges, QPainter &painter);
-	int code(const QPoint &point, int xl, int xr, int yb, int yt);
 
     bool startClipper = false;
     bool startFigure = false;
