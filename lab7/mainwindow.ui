@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1680</width>
+    <height>773</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="DrawLabel" name="drawLabel">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>20</y>
+      <width>1201</width>
+      <height>721</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>401</width>
+      <height>651</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <widget class="QSpinBox" name="y1addLineSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>69</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>720</number>
+     </property>
+    </widget>
+    <widget class="Line" name="line_4">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>338</y>
+       <width>377</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="y2addLineTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>69</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>y2</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="y2addLineSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>69</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>720</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="y1setClipperTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>237</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>y1</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="y1setClipperSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>237</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>720</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="x2setClipperTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>188</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>x2</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="x2setClipperSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>188</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1200</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="y2setClipperTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>237</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>y2</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="y2setClipperSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>237</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>720</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lineBaseColorLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>356</y>
+       <width>64</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>64</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setLineBaseColorPushButton">
+     <property name="geometry">
+      <rect>
+       <x>101</x>
+       <y>356</y>
+       <width>291</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Изменить цвет линии</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="clipperColorLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>408</y>
+       <width>64</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>64</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setClipperColorPushButton">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>408</y>
+       <width>291</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Изменить цвет отсекателя</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="clippedLineColorLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>460</y>
+       <width>64</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>64</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setClippedLineColorPushButton">
+     <property name="geometry">
+      <rect>
+       <x>98</x>
+       <y>460</y>
+       <width>291</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>190</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Изменить цвет отсечения</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="x1setClipperSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>188</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1200</number>
+     </property>
+    </widget>
+    <widget class="Line" name="line">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>20</y>
+       <width>16</width>
+       <height>83</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setClipperPushButton">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>286</y>
+       <width>381</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Добавить отсекатель</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="clipPushButton">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>530</y>
+       <width>371</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Отсечь</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="addLinePushButton">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>118</y>
+       <width>381</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Добавить линию</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="y1addLineTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>69</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>y1</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="x1addLineSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>20</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1200</number>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="clearPushButton">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>582</y>
+       <width>371</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Очистить</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="x2addLineTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>20</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>x2</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="x2addLineSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>20</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1200</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="x1setClipperTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>188</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>x1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="x1addLineTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>20</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>x1</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line_2">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>188</y>
+       <width>16</width>
+       <height>83</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_3">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>170</y>
+       <width>377</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_5">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>512</y>
+       <width>377</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>DrawLabel</class>
+   <extends>QLabel</extends>
+   <header>drawlabel.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
