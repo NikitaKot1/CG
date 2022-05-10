@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1680</width>
+    <height>980</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="DrawLabel" name="drawLabel">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>20</y>
+      <width>1201</width>
+      <height>720</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>401</width>
+      <height>671</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <widget class="QSpinBox" name="y1addDotClipSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>69</y>
+       <width>311</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>720</number>
+     </property>
+    </widget>
+    <widget class="Line" name="line_4">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>370</y>
+       <width>377</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="y1setClipperTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>280</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>y1</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="y1setLineSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>280</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>720</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="x2setClipperTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>231</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>x2</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="x2setLineSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>231</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1200</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="y2setClipperTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>280</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>y2</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="y2x1setLineSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>280</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>720</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lineBaseColorLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>400</y>
+       <width>64</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>64</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setLineBaseColorPushButton">
+     <property name="geometry">
+      <rect>
+       <x>101</x>
+       <y>400</y>
+       <width>291</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Изменить цвет линии</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="clipperColorLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>450</y>
+       <width>64</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>64</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setClipperColorPushButton">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>450</y>
+       <width>291</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Изменить цвет отсекателя</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="clippedLineColorLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>500</y>
+       <width>64</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>64</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setClippedLineColorPushButton">
+     <property name="geometry">
+      <rect>
+       <x>98</x>
+       <y>500</y>
+       <width>291</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>190</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Изменить цвет отсечения</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="x1setLineSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>231</y>
+       <width>120</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1200</number>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="addLinePushButton">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>330</y>
+       <width>381</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Добавить линию</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="clipPushButton">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>570</y>
+       <width>371</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Отсечь</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setClipperPushButton">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>118</y>
+       <width>381</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Добавить точку отсекателя</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="y1addLineTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>69</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>y1</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="x1addDotClipSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>20</y>
+       <width>311</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1200</number>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="clearPushButton">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>620</y>
+       <width>371</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Очистить</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="x1setClipperTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>231</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>x1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="x1addLineTextLabel">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>20</y>
+       <width>24</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>x1</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line_2">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>230</y>
+       <width>16</width>
+       <height>83</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_3">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>200</y>
+       <width>377</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_5">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>550</y>
+       <width>377</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="closeClipperButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>160</y>
+       <width>381</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Замкнуть отсекатель</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>690</y>
+      <width>400</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="rowCount">
+     <number>1</number>
+    </property>
+    <property name="columnCount">
+     <number>6</number>
+    </property>
+    <attribute name="horizontalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderMinimumSectionSize">
+     <number>50</number>
+    </attribute>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>95</number>
+    </attribute>
+    <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderCascadingSectionResizes">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+     <bool>false</bool>
+    </attribute>
+    <row/>
+    <column>
+     <property name="text">
+      <string>x1</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>y1</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>x2</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>y2</string>
+     </property>
+    </column>
+    <column/>
+    <column/>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxParallel">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>810</y>
+      <width>531</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Построить параллельно стороне отсекателя</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBoxParallel">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>890</y>
+      <width>231</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>1</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>850</y>
+      <width>301</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Номер стороны отсекателя:</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>DrawLabel</class>
+   <extends>QLabel</extends>
+   <header>drawlabel.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
